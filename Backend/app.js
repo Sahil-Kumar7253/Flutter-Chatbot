@@ -2,6 +2,13 @@ const express = require("express");
 app = express();
 const cors = require("cors");
 const messRouter = require("./routes/chatRoutes");
+const multer = require("multer")
+const {processPdf} = require("./controllers/pdf_controller");
+
+const storage = multer.memoryStorage();
+const upload = multer({storage : storage})
+
+app.post("/api/upload", upload.single("pdf"), processPdf);
 
 app.use(express.json());
 app.use(cors());
