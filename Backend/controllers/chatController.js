@@ -13,8 +13,12 @@ async function generateResponse(req, res){
             return res.status(400).json({error : "Prompt is required"});
         }
 
+        const instruction = "Please use markdown for formatting. Make important keywords, titles, or key phrases bold using double asterisks. For example: 'This is the **main point**.' Do not use single asterisks for bolding. Now, answer the user's question. "
+        
+        const fullPrompt = `${instruction}\n\nUser Question: ${prompt}`
+
         const model = genAI.getGenerativeModel({model : "gemini-2.0-flash"});
-        const result =  await model.generateContent(prompt);
+        const result =  await model.generateContent(fullPrompt);
         const response = await result.response;
         const text = response.text();
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_markdown/flutter_markdown.dart';
 import '../model/chat_message.dart';
 import '../services/api_service.dart';
 
@@ -55,11 +55,17 @@ class _ChatScreenState extends State<ChatScreen> {
                         color: message.isUser ? Colors.blue : Colors.green,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text(
+                      child:message.isUser? Text(
                           message.text,
                           style: TextStyle(
                             color: Colors.white,
-                          ),
+                          ) ,
+                      ) : MarkdownBody(
+                        data: message.text,
+                        selectable: true,
+                        styleSheet: MarkdownStyleSheet(
+                          p: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
