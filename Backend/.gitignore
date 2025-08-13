@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+*.dll
+
+# Distribution / packaging
+.Python
+env/
+venv/
+lib/
+lib64/
+include/
+share/
+bin/
+eggs/
+.egg/
+*.egg-info/
+.installed.cfg
+*.mo
+*.pot
+*.log
+*.sagebrew/
+.env
+
+# Editors
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.coverage
+.pytest_cache/
+
+# Django
+*.log
+*.sqlite3
+media/
+
+# Celery
+celerybeat-schedule/
+
+# Docker
+.dockerignore
+
+# Misc
+.python-version
+.env
