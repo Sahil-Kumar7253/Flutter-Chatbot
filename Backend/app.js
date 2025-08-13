@@ -8,7 +8,7 @@ const {processPdf} = require("./controllers/pdf_controller");
 const storage = multer.memoryStorage();
 const upload = multer({storage : storage})
 
-app.post("/api/upload", upload.single("pdf"), processPdf);
+app.post("/api/upload", upload.single('pdf'), processPdf);
 
 app.use(express.json());
 app.use(cors());
