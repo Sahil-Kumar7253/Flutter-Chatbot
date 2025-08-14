@@ -64,7 +64,6 @@ class _ChatScreenState extends State<ChatScreen> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("PDF uploaded successfully")),
               );
-              print("step 3");
               setState(() {
                 _sessionId = responseMap['sessionId'];
                 _hintText = "Ask about the uploaded PDF.... ";
@@ -72,7 +71,6 @@ class _ChatScreenState extends State<ChatScreen> {
               });
             }
           }else{
-            print("step 4");
             if(responseMap['error'] != null){
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(responseMap['error'])),

@@ -15,7 +15,7 @@ async function generateResponse(req, res){
         return res.status(400).json({error : "Prompt is required"});
     }
 
-    const model = genAI.getGenerativeModel({model : "gemini-1.5-flash-latest"});
+    const model = genAI.getGenerativeModel({model : "gemini-2.0-flash"});
 
     try{
         let responseText;
@@ -33,22 +33,23 @@ async function generateResponse(req, res){
 
               
             const augmentedPrompt = `
-            You are an expert Q&A assistant. Your primary goal is to answer questions based on the provided PDF document context.
-          
-            Follow these rules strictly:
-            1.  First, analyze the **PROVIDED DOCUMENT CONTEXT** below to find the answer.
-            2.  If the answer is fully contained within the context, provide it directly.
-            3.  If the context does **not** contain the answer, and only in that case, state clearly: "I could not find the answer in the uploaded document." and then proceed to search the internet for a general answer.
-            4.  Never invent information or mix details from the document with external knowledge.
-          
-            ---
-            PROVIDED DOCUMENT CONTEXT:
-            ${context}
-            ---
-          
-            USER QUESTION:
-            "${prompt}"
-            ` ;
+            You are a helpful Q&A assistant. Your task is to answer the user's question.
+
+              **Instructions:**
+              1.  First, carefully analyze the "PROVIDED CONTEXT" from a document.
+              2.  If the context contains a relevant answer to the "USER QUESTION", formulate your response directly from this context.
+              3.  If the context is not relevant or does not contain the answer, you MUST answer the "USER QUESTION" using your own general knowledge.
+              4.  **Crucially, your final response should NEVER mention the "PROVIDED CONTEXT".** The user should not know whether the answer came from the document or from your general knowledge.
+              5.  Use markdown for formatting.
+
+              ---
+              **PROVIDED CONTEXT:**
+              ${context}
+              ---
+
+              **USER QUESTION:**
+              "${prompt}"
+            `;
 
             const result =  await model.generateContent(augmentedPrompt);
             responseText = result.response.text();
